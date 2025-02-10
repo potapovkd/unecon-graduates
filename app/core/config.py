@@ -26,9 +26,9 @@ class Settings(BaseSettings):
 
 
 settings = Settings(
-    DATABASE_URL=db_path,
-    TOKEN=hf_token,
-    MODEL=model_name,
+    # DATABASE_URL=db_path,
+    # TOKEN=hf_token,
+    # MODEL=model_name,
 )
 
 
