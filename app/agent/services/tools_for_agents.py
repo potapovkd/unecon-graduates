@@ -8,7 +8,7 @@ from sqlalchemy import (
 
 from core.config import settings
 
-engine = create_engine(settings.DATABASE_URL)
+engine = create_engine(f"sqlite:///{settings.DATABASE_URL}")
 
 
 @tool

@@ -4,6 +4,7 @@ import os
 
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
+from smolagents import tool
 
 
 load_dotenv(".env")
@@ -19,20 +20,24 @@ class Settings(BaseSettings):
     # DATABASE_URL: str = (
     #     f"sqlite:///{db_path}"
     # )
-    DATABASE_URL: str = "sqlite:///graduates.db"
+    DATABASE_URL: str = "graduates.db"
     MODEL: str = "Qwen/Qwen2.5-Coder-32B-Instruct"
     TOKEN: str = "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"
 
 
 settings = Settings(
-    DATABASE_URL=f"sqlite:///{db_path}",
+    DATABASE_URL=db_path,
     TOKEN=hf_token,
     MODEL=model_name,
 )
 
 
-def get_color_discrete_sequence():
-    """Для построения графиков plotly для цветного экспорта."""
+@tool
+def get_color_discrete_sequence() -> list:
+    """
+    A tool for transferring palettes to the plotli graph constructor.
+    Make sure to pass the color_discrete_sequence argument.
+    """
     return [
         "#0068c9",
         "#83c9ff",

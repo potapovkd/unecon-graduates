@@ -4,13 +4,13 @@ import plotly.graph_objects as go
 from smolagents import CodeAgent, HfApiModel
 import streamlit as st
 
-from core.config import settings
+from core.config import settings, get_color_discrete_sequence
 from utils.etl_utils import clean_salary
 from .services.tools_for_agents import sql_engine
 
 
 agent = CodeAgent(
-    tools=[sql_engine, clean_salary],
+    tools=[sql_engine, clean_salary, get_color_discrete_sequence],
     model=HfApiModel(settings.MODEL, token=settings.TOKEN),
     additional_authorized_imports=["pandas", "plotly", "io"],
 )

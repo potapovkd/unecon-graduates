@@ -20,7 +20,6 @@ def set_sunburst_params(data):
         selected_levels.append(level)
     value = st.selectbox("Значение", options=data.columns, key="value")
     return {
-        "type": "Sunburst",
         "levels": selected_levels,
         "value": value,
     }

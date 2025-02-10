@@ -7,6 +7,7 @@ class ChartForConstruction(Enum):
     """Доступные для конструирования типы графиков."""
 
     SUNBURST = "Sunburst"
+    BARPLOT = "Barplot"
 
     @classmethod
     def get_charts_for_construction(cls):

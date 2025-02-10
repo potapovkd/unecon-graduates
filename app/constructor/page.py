@@ -7,6 +7,7 @@ import streamlit as st
 from core.config import get_color_discrete_sequence
 from .config import ChartForConstruction
 from .services.filters_services import cache_filters
+from .services.barplot_services import set_barplot_params, plot_bar
 from .services.sunburst_services import plot_sunburst, set_sunburst_params
 
 
@@ -14,7 +15,11 @@ CHART_FUNCTION_MAPPER = {
     ChartForConstruction.SUNBURST.value: {
         "function_for_set_params": set_sunburst_params,
         "function_for_plot": plot_sunburst,
-    }
+    },
+    ChartForConstruction.BARPLOT.value: {
+        "function_for_set_params": set_barplot_params,
+        "function_for_plot": plot_bar,
+    },
 }
 
 
@@ -25,8 +30,8 @@ def init_constructor_page(data, debug=False):
         ChartForConstruction.get_charts_for_construction(),
     )
     fig_title = st.text_input("Введите название графика")
-
-    st.session_state.filtered_data = cache_filters(data)
+    with st.sidebar:
+        st.session_state.filtered_data = cache_filters(data)
 
     st.session_state.chart_params = CHART_FUNCTION_MAPPER[chart_type][
         "function_for_set_params"
@@ -68,6 +73,6 @@ def init_constructor_page(data, debug=False):
             else:
                 debug_string = ""
             st.warning(
-                f"Невозможно построить {params['type']} график для выбранных "
+                f"Невозможно построить {chart_type} график для выбранных "
                 f"параметров.{debug_string}"
             )

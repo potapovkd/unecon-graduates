@@ -7,7 +7,6 @@ from .services.report_services import create_html, create_pdf
 
 def init_dashboard_page():
     """Инициализация страницы дашборда."""
-
     figures_for_dashboard = [
         figures["figure"]
         for figures in st.session_state.figures

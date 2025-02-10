@@ -5,7 +5,7 @@ import streamlit as st
 
 def cache_filters(data):
     """Установка фильтров и сохранение их состояния."""
-    grad_year_range = st.sidebar.slider(
+    grad_year_range = st.slider(
         "Год выпуска:",
         min_value=int(data["Год выпуска"].min()),
         max_value=int(data["Год выпуска"].max()),
@@ -15,7 +15,7 @@ def cache_filters(data):
         ),
     )
 
-    step_filter = st.sidebar.radio(
+    step_filter = st.radio(
         "Этап карьеры",
         options=[
             "Без фильтрации",
@@ -24,13 +24,13 @@ def cache_filters(data):
         ],
     )
 
-    salary_filter = st.sidebar.multiselect(
+    salary_filter = st.multiselect(
         "Интервал зарплат:",
         options=data["Диапазон зарплаты"].unique(),
         default=data["Диапазон зарплаты"].unique(),
     )
 
-    magistracy_filter = st.sidebar.multiselect(
+    magistracy_filter = st.multiselect(
         "Магистратура:",
         options=data["Магистратура"].unique(),
         default=data["Магистратура"].unique(),
