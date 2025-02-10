@@ -7,7 +7,7 @@ from utils.etl_utils import upload_data
 
 
 def init_start_page():
-    cnx = sqlite3.connect(settings.DATABASE_URL)
+    cnx = f"sqlite:///{settings.DATABASE_URL}"
     st.subheader("Введите ссылку на файл")
     file_url = st.text_input(
         "Ссылка на файл (Яндекс.Диск):",
@@ -21,3 +21,5 @@ def init_start_page():
             if data is not None:
                 st.success("Файл успешно загружен и обработан!")
                 st.dataframe(data.head())
+                if st.button("Закрыть"):
+                    st.rerun()
