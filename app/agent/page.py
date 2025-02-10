@@ -25,15 +25,11 @@ def init_agent_page():
 
     model_choice = st.radio(
         "Выберите модель",
-        ["DeepSeek-V3", "Qwen2.5 Coder 32B"]
+        ["deepseek-ai/DeepSeek-V3", "Qwen/Qwen2.5-Coder-32B-Instruct"]
     )
-    if model_choice == "DeepSeek-V3":
-        model = "deepseek-ai/DeepSeek-V3"
-    else:
-        model = "Qwen/Qwen2.5-Coder-32B-Instruct"
     agent = CodeAgent(
         tools=[sql_engine, clean_salary, get_color_discrete_sequence],
-        model=HfApiModel(model=model, token=settings.TOKEN),
+        model=HfApiModel(model=model_choice, token=settings.TOKEN),
         additional_authorized_imports=["pandas", "plotly", "io"],
     )
 
