@@ -15,6 +15,15 @@ agent = CodeAgent(
     additional_authorized_imports=["pandas", "plotly", "io"],
 )
 
+general_prompt = (
+    "Отвечай на русском языке. "
+    "Если просят сгенерировать график, подписи должны быть на русском языке. "
+    "Если просят сгенерировать график верни объект plotly go Figure, иначе - "
+    "текстовый ответ. Учитывай последнее (текущее) место работы - "
+    "максимальный step для каждого graduate, если в запросе не указано иное. "
+    "Запрос пользователя: "
+)
+
 
 def init_agent_page():
     """Инициализация страницы ИИ-агента."""
@@ -24,7 +33,7 @@ def init_agent_page():
         if user_input.strip():
             st.subheader("Ответ:")
             result = agent.run(
-                user_input,
+                general_prompt + user_input,
             )
             if isinstance(result, go.Figure):
                 st.session_state["last_ai_figure"] = result
