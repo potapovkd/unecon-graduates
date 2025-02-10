@@ -19,6 +19,7 @@ def main(**kwargs):
     page = st.sidebar.radio(
         "Выберите страницу",
         [
+            "Загрузка данных",
             "Dashboard",
             "Конструктор графиков",
             "ИИ-агент",
@@ -29,6 +30,8 @@ def main(**kwargs):
         st.session_state["figures"] = []
     if os.path.exists(settings.DATABASE_URL):
         data = pd.read_sql_table("graduates", con=f"sqlite:///{settings.DATABASE_URL}")
+        if page == "Загрузка данных":
+            init_start_page()
         if page == "Dashboard":
             init_dashboard_page()
         elif page == "Конструктор графиков":
@@ -37,8 +40,6 @@ def main(**kwargs):
             init_agent_page()
         elif page == "Хранилище":
             init_storage_page()
-    else:
-            init_start_page()
 
 
 if "__main__" == __name__:

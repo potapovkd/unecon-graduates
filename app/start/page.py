@@ -21,5 +21,3 @@ def init_start_page():
             if data is not None:
                 st.success("Файл успешно загружен и обработан!")
                 st.dataframe(data.head())
-                if st.button("Закрыть"):
-                    st.rerun()
