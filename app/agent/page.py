@@ -27,7 +27,6 @@ def init_agent_page():
         [
             "Qwen/Qwen2.5-Coder-32B-Instruct",
             "Qwen/Qwen2.5-Coder-1.5B-Instruct",
-            "deepseek-ai/deepseek-coder-1.3b-instruct"
         ]
     )
     agent = CodeAgent(
