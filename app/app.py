@@ -16,30 +16,38 @@ st.set_page_config(layout="wide")
 
 def main(**kwargs):
     """Инициализация приложения."""
-    page = st.sidebar.radio(
-        "Выберите страницу",
-        [
-            "Загрузка данных",
+    if os.path.exists(settings.DATABASE_URL):
+        data = pd.read_sql_table(
+            "graduates",
+            con=f"sqlite:///{settings.DATABASE_URL}"
+        )
+        pages = [
             "Dashboard",
             "Конструктор графиков",
             "ИИ-агент",
-            "Хранилище"
-        ],
+            "Хранилище",
+        ]
+    else:
+        data = pd.DataFrame()
+        pages = [
+            "Загрузка данных"
+        ]
+    page = st.sidebar.radio(
+        "Выберите страницу",
+        pages
     )
     if not st.session_state.get("figures", None):
         st.session_state["figures"] = []
-    if os.path.exists(settings.DATABASE_URL):
-        data = pd.read_sql_table("graduates", con=f"sqlite:///{settings.DATABASE_URL}")
-        if page == "Загрузка данных":
-            init_start_page()
-        if page == "Dashboard":
-            init_dashboard_page()
-        elif page == "Конструктор графиков":
-            init_constructor_page(data, **kwargs)
-        elif page == "ИИ-агент":
-            init_agent_page()
-        elif page == "Хранилище":
-            init_storage_page()
+    if page == "Загрузка данных":
+        init_start_page()
+    if page == "Dashboard":
+        init_dashboard_page()
+    elif page == "Конструктор графиков":
+        init_constructor_page(data, **kwargs)
+    elif page == "ИИ-агент":
+        init_agent_page()
+    elif page == "Хранилище":
+        init_storage_page()
 
 
 if "__main__" == __name__:

@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     #     f"sqlite:///{db_path}"
     # )
     DATABASE_URL: str = "graduates.db"
-    MODEL: str = "Qwen/Qwen2.5-Coder-32B-Instruct"
+    MODEL: str = "deepseek-ai/DeepSeek-V3"
     TOKEN: str = "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"
 
 

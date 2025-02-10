@@ -9,27 +9,30 @@ from utils.etl_utils import clean_salary
 from .services.tools_for_agents import sql_engine
 
 
-general_prompt = (
-    "Отвечай на русском языке. "
-    "Если просят сгенерировать график, подписи должны быть на русском языке. "
-    "Если просят сгенерировать график верни объект plotly go Figure, иначе - "
-    "текстовый ответ. Учитывай последнее (текущее) место работы - "
-    "максимальный step для каждого graduate, если в запросе не указано иное. "
-    "Запрос пользователя: "
-)
+# general_prompt = (
+#     "Отвечай на русском языке. "
+#     "Если просят сгенерировать график верни объект plotly go Figure, иначе - "
+#     "текстовый ответ. Выбирай "
+#     "максимальный step для каждого graduate, если в запросе не указано иное. "
+#     "Запрос пользователя: "
+# )
 
-
+general_prompt = ""
 
 def init_agent_page():
     """Инициализация страницы ИИ-агента."""
 
     model_choice = st.radio(
         "Выберите модель",
-        ["deepseek-ai/DeepSeek-V3", "Qwen/Qwen2.5-Coder-32B-Instruct"]
+        [
+            "Qwen/Qwen2.5-Coder-32B-Instruct",
+            "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+            "deepseek-ai/deepseek-coder-1.3b-instruct"
+        ]
     )
     agent = CodeAgent(
         tools=[sql_engine, clean_salary, get_color_discrete_sequence],
-        model=HfApiModel(model=model_choice, token=settings.TOKEN),
+        model=HfApiModel(model_choice, token=settings.TOKEN),
         additional_authorized_imports=["pandas", "plotly", "io"],
     )
 
