@@ -25,7 +25,7 @@ def init_agent_page():
 
     model_choice = st.radio(
         "Выберите модель",
-        ["Qwen2.5 Coder 7B", "Qwen2.5 Coder 32B"]
+        ["Qwen2.5 Coder 1.5B", "Qwen2.5 Coder 32B"]
     )
     if model_choice == "Qwen2.5 Coder 1.5B":
         model = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
