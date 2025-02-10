@@ -27,13 +27,13 @@ def init_agent_page():
         "Выберите модель",
         ["Qwen2.5 Coder 7B", "Qwen2.5 Coder 32B"]
     )
-    if model_choice == "Qwen2.5 Coder 7B":
-        model = "Qwen/Qwen2.5-Coder-7B-Instruct"
+    if model_choice == "Qwen2.5 Coder 1.5B":
+        model = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
     else:
         model = "Qwen/Qwen2.5-Coder-32B-Instruct"
     agent = CodeAgent(
         tools=[sql_engine, clean_salary, get_color_discrete_sequence],
-        model=HfApiModel(model, token=settings.TOKEN),
+        model=HfApiModel(model=model, token=settings.TOKEN),
         additional_authorized_imports=["pandas", "plotly", "io"],
     )
 
