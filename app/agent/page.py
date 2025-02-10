@@ -25,10 +25,10 @@ def init_agent_page():
 
     model_choice = st.radio(
         "Выберите модель",
-        ["Qwen2.5 Coder 1.5B", "Qwen2.5 Coder 32B"]
+        ["DeepSeek-V3", "Qwen2.5 Coder 32B"]
     )
     if model_choice == "Qwen2.5 Coder 1.5B":
-        model = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
+        model = "deepseek-ai/DeepSeek-V3"
     else:
         model = "Qwen/Qwen2.5-Coder-32B-Instruct"
     agent = CodeAgent(
