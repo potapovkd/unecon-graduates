@@ -9,12 +9,6 @@ from utils.etl_utils import clean_salary
 from .services.tools_for_agents import sql_engine
 
 
-agent = CodeAgent(
-    tools=[sql_engine, clean_salary, get_color_discrete_sequence],
-    model=HfApiModel(settings.MODEL, token=settings.TOKEN),
-    additional_authorized_imports=["pandas", "plotly", "io"],
-)
-
 general_prompt = (
     "Отвечай на русском языке. "
     "Если просят сгенерировать график, подписи должны быть на русском языке. "
@@ -25,8 +19,24 @@ general_prompt = (
 )
 
 
+
 def init_agent_page():
     """Инициализация страницы ИИ-агента."""
+
+    model_choice = st.radio(
+        "Выберите модель",
+        ["Qwen2.5 Coder 7B", "Qwen2.5 Coder 32B"]
+    )
+    if model_choice == "Qwen2.5 Coder 7B":
+        model = "Qwen/Qwen2.5-Coder-7B-Instruct"
+    else:
+        model = "Qwen/Qwen2.5-Coder-32B-Instruct"
+    agent = CodeAgent(
+        tools=[sql_engine, clean_salary, get_color_discrete_sequence],
+        model=HfApiModel(model, token=settings.TOKEN),
+        additional_authorized_imports=["pandas", "plotly", "io"],
+    )
+
     user_input = st.text_area("Введите запрос", value="", height=150)
 
     if st.button("Спросить"):
